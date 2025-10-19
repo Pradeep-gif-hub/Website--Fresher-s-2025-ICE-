@@ -1,0 +1,517 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'StrangerThings';
+  src: url('./assets/fonts/font.OTF') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.font {
+  font-family: 'StrangerThings', serif;
+}
+
+.stroked-text {
+  font-family: 'StrangerThings', sans-serif;
+  -webkit-text-stroke: 2px #CD2404;
+}
+
+.stroked-text-light {
+  font-family: 'StrangerThings', sans-serif;
+  -webkit-text-stroke: 1px #CD2404;
+}
+
+.fog {
+  border-radius: 100%;
+  opacity: 0.34;
+  background: radial-gradient(50% 50% at 50% 50%, #FF1515 0%, rgba(0, 0, 0, 0.00) 100%);
+  filter: blur(163.10000610351562px);
+}
+
+@keyframes flicker {
+  0% { opacity: 1; }
+  50% { opacity: 0.3; }
+  100% { opacity: 1; }
+}
+
+@keyframes curse {
+  0% { transform: translate(0, 0); filter: hue-rotate(0deg); }
+  25% { transform: translate(5px, 5px); filter: hue-rotate(90deg); }
+  50% { transform: translate(-5px, -5px); filter: hue-rotate(180deg); }
+  75% { transform: translate(-5px, 5px); filter: hue-rotate(270deg); }
+  100% { transform: translate(0, 0); filter: hue-rotate(360deg); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(232, 25, 25, 0.5),
+                0 0 40px rgba(232, 25, 25, 0.3),
+                inset 0 0 20px rgba(232, 25, 25, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(232, 25, 25, 0.8),
+                0 0 60px rgba(232, 25, 25, 0.5),
+                inset 0 0 30px rgba(232, 25, 25, 0.3);
+  }
+}
+
+@keyframes rotate-portal {
+  from { transform: translate(-50%, -50%) rotate(0deg) scale(1); }
+  to { transform: translate(-50%, -50%) rotate(360deg) scale(1.1); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.app {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  min-height: 100vh;
+  background: #000;
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+}
+
+.ticket-container {
+  background: #111;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(232, 25, 25, 0.3);
+  margin-top: 40px;
+  position: relative;
+  border: 2px solid #333;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+.verification-success {
+  text-align: center;
+  background: #000;
+  border-color: #e81919;
+}
+
+.success-message {
+  color: #e81919;
+  font-size: 24px;
+  margin-top: 20px;
+  animation: flicker 2s infinite;
+  text-shadow: 0 0 10px #e81919;
+}
+
+.stranger-title {
+  font-size: 48px;
+  font-weight: bold;
+  color: #e81919;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 30px;
+  text-shadow: 0 0 10px #e81919, 0 0 20px #e81919, 0 0 30px #e81919;
+  animation: flicker 4s infinite;
+}
+
+.strange-lights {
+  display: flex;
+  justify-content: space-around;
+  margin: 20px 0;
+  gap: 10px;
+}
+
+.light {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ff0000;
+  animation: flicker 2s infinite;
+  box-shadow: 0 0 10px currentColor;
+}
+
+.light:nth-child(2n) {
+  background: #00ff00;
+  animation-delay: 0.3s;
+}
+
+.light:nth-child(3n) {
+  background: #0000ff;
+  animation-delay: 0.6s;
+}
+
+.light:nth-child(4n) {
+  background: #ffff00;
+  animation-delay: 0.9s;
+}
+
+.light:nth-child(5n) {
+  background: #ff00ff;
+  animation-delay: 1.2s;
+}
+
+.hawkins-theme {
+  background: #000;
+  border: 3px solid #e81919;
+}
+
+.verification-form {
+  text-align: center;
+  max-width: 500px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.event-intro {
+  color: #e81919;
+  margin-bottom: 30px;
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Countdown styles */
+.countdown {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.countdown-wrapper {
+  transition: opacity 400ms ease, transform 400ms ease;
+}
+
+/* Hide the countdown while hovered (no pointer-events to avoid flicker) */
+.countdown-wrapper:hover {
+  opacity: 0;
+  transform: translateY(-14px) scale(0.97);
+}
+
+.countdown .time-pill {
+  background: linear-gradient(180deg, rgba(0,0,0,0.6), rgba(20,6,6,0.6));
+  border: 1px solid rgba(232,25,25,0.15);
+  padding: 10px 14px;
+  border-radius: 8px;
+  min-width: 64px;
+  box-shadow: 0 0 14px rgba(232,25,25,0.22), inset 0 0 8px rgba(0,0,0,0.6);
+  text-align: center;
+  backdrop-filter: blur(4px);
+  /* slower, alternating flicker for creepier effect */
+  animation: pill-flicker 5s ease-in-out infinite;
+  animation-direction: alternate;
+}
+
+.countdown .time-pill .text-2xl {
+  color: rgba(232,25,25,0.95);
+  text-shadow: 0 0 8px rgba(232,25,25,0.6), 0 0 16px rgba(232,25,25,0.25);
+  font-family: 'StrangerThings', monospace;
+}
+
+.countdown .time-pill .text-xs {
+  color: rgba(200,100,100,0.7);
+}
+
+@keyframes pill-flicker {
+  0% { opacity: 1; transform: translateY(0) scale(1); }
+  30% { opacity: 0.9; transform: translateY(-3px) scale(1.03); }
+  60% { opacity: 0.55; transform: translateY(2px) scale(0.99) rotate(-0.5deg); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+input {
+  padding: 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+input:focus {
+  border-color: #e81919;
+  outline: none;
+  box-shadow: 0 0 10px rgba(232, 25, 25, 0.5);
+}
+
+button {
+  padding: 12px 24px;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.ticket {
+  background: #000;
+  padding: 30px;
+  border: 2px solid #e81919;
+  border-radius: 12px;
+  margin-top: 20px;
+  position: relative;
+  overflow: hidden;
+  color: #e81919;
+  box-shadow: 0 0 20px rgba(232, 25, 25, 0.5);
+}
+
+.hawkins-lab {
+  background-image:
+    linear-gradient(45deg, transparent 65%, rgba(232, 25, 25, 0.05) 75%, transparent 85%),
+    linear-gradient(-45deg, transparent 65%, rgba(232, 25, 25, 0.05) 75%, transparent 85%);
+  background-size: 30px 30px;
+}
+
+.classified-stamp {
+  position: absolute;
+  top: 20px;
+  right: -30px;
+  background: #e81919;
+  color: white;
+  padding: 5px 40px;
+  transform: rotate(45deg);
+  font-weight: bold;
+  box-shadow: 0 0 10px rgba(232, 25, 25, 0.5);
+  z-index: 20;
+}
+
+.hawkins-input {
+  background: #1a1a1a;
+  border: 2px solid #e81919;
+  color: #fff;
+  text-shadow: 0 0 5px #e81919;
+}
+
+.hawkins-btn {
+  background: #e81919;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  border: none;
+  box-shadow: 0 0 10px rgba(232, 25, 25, 0.5);
+}
+
+.hawkins-btn:hover {
+  background: #ff0000;
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(232, 25, 25, 0.8), 0 0 40px rgba(232, 25, 25, 0.5);
+}
+
+.vecna-curse {
+  color: #e81919;
+  font-size: 24px;
+  text-align: center;
+  margin-top: 20px;
+  animation: curse 0.5s infinite;
+  text-shadow: 0 0 10px #e81919;
+}
+
+.hawkins-warning {
+  background: #1a1a1a;
+  border: 2px solid #e81919;
+  padding: 20px;
+  margin: 20px 0;
+  position: relative;
+  border-radius: 8px;
+}
+
+.warning-tape {
+  height: 20px;
+  background: repeating-linear-gradient(
+    45deg,
+    #000,
+    #000 10px,
+    #e81919 10px,
+    #e81919 20px
+  );
+  margin: -20px -20px 20px -20px;
+}
+
+.warning-tape:last-child {
+  margin: 20px -20px -20px -20px;
+}
+
+body.cursed {
+  animation: curse 0.2s infinite;
+}
+
+.ticket-header {
+  border-bottom: 2px dashed #e81919;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.ticket-header h2 {
+  color: #e81919;
+  margin: 0;
+  font-size: 24px;
+  text-shadow: 0 0 8px rgba(232, 25, 25, 0.8);
+}
+
+.ticket-body {
+  padding: 20px 0;
+}
+
+.ticket-details {
+  margin-bottom: 30px;
+  background: rgba(232, 25, 25, 0.05);
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid rgba(232, 25, 25, 0.2);
+}
+
+.detail-line {
+  margin: 15px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.5);
+  border-left: 3px solid #e81919;
+}
+
+.detail-label {
+  color: #e81919;
+  font-size: 12px;
+  text-shadow: 0 0 5px rgba(232, 25, 25, 0.8);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.detail-value {
+  color: #fff;
+  font-size: 16px;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.upside-down-portal {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  margin: 30px auto;
+}
+
+.portal-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  border: 2px solid #e81919;
+  border-radius: 50%;
+  animation: rotate-portal 10s linear infinite;
+  box-shadow: 0 0 20px rgba(232, 25, 25, 0.5),
+              inset 0 0 20px rgba(232, 25, 25, 0.3);
+}
+
+.portal-ring:nth-child(2) {
+  width: 70%;
+  height: 70%;
+  animation-duration: 7s;
+  animation-direction: reverse;
+}
+
+.portal-ring:nth-child(3) {
+  width: 40%;
+  height: 40%;
+  animation-duration: 4s;
+}
+
+.ticket-footer {
+  text-align: center;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 2px dashed #e81919;
+}
+
+.download-button {
+  background: #e81919;
+  padding: 15px 30px;
+  font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #fff;
+  border: none;
+  box-shadow: 0 0 15px rgba(232, 25, 25, 0.5);
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+  transition: all 0.3s ease;
+}
+
+.download-button:hover {
+  background: #ff0000;
+  transform: scale(1.05);
+  box-shadow: 0 0 25px rgba(232, 25, 25, 0.8), 0 0 50px rgba(232, 25, 25, 0.5);
+}
+
+.error {
+  color: #d32f2f;
+  margin-top: 10px;
+}
+
+@media print {
+  .ticket {
+    background: #fff;
+    border: 2px solid #000;
+    color: #000;
+    box-shadow: none;
+  }
+
+  .download-button {
+    display: none;
+  }
+
+  .ticket-header, .ticket-footer {
+    border-color: #000;
+  }
+
+  .detail-line,
+  .detail-label,
+  .detail-value,
+  .ticket-header h2,
+  .stranger-title {
+    color: #000;
+    text-shadow: none;
+  }
+
+  .hawkins-warning {
+    border-color: #000;
+    background: #fff;
+  }
+
+  .warning-tape {
+    background: repeating-linear-gradient(
+      45deg,
+      #fff,
+      #fff 10px,
+      #000 10px,
+      #000 20px
+    );
+  }
+
+  .classified-stamp {
+    background: #000;
+    color: #fff;
+    box-shadow: none;
+  }
+
+  .upside-down-portal,
+  .fog,
+  .strange-lights {
+    display: none;
+  }
+}
